@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+<title>Ticiqi 远程控制</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- PRIMARY: full-screen play/pause + bottom seek bar -->
+<div id="primaryView" class="view" style="display:none">
+  <!-- Top bar — status + more button -->
+  <div class="top-bar">
+    <div class="status-dot" id="statusDot"></div>
+    <button id="btnMore" class="icon-btn">
+      <span class="icon-btn-icon">&#9776;</span>
+    </button>
+  </div>
+
+  <!-- Play/Pause — THE ENTIRE SCREEN except seek bar -->
+  <div id="playZone" class="play-zone">
+    <div class="play-content">
+      <div class="play-icon" id="playIcon">&#9654;</div>
+      <div class="play-label" id="playLabel">播放</div>
+    </div>
+  </div>
+
+  <!-- Seek bar — double height, entire area touchable -->
+  <div class="seek-strip" id="seekStrip">
+    <div class="seek-pct" id="seekPct">0%</div>
+    <div class="seek-track-wrap">
+      <div class="seek-track" id="seekTrack">
+        <div class="seek-fill" id="seekFill"></div>
+        <div class="seek-thumb" id="seekThumb"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECONDARY: slide-up sheet for adjustments -->
+<div id="secondaryView" class="view">
+  <div class="sec-backdrop" id="secBackdrop"></div>
+  <div class="sec-sheet">
+    <div class="sheet-indicator"></div>
+    <div class="sec-scroll">
+
+      <!-- Speed -->
+      <div class="sec-zone">
+        <div class="zone-header">
+          <span class="zone-title">速度</span>
+          <span class="zone-value" id="valSpeed">30</span>
+        </div>
+        <input type="range" id="speedSlider" class="zone-slider" min="1" max="200" value="30">
+        <div class="preset-row">
+          <button class="preset-btn" data-speed="15">慢</button>
+          <button class="preset-btn active" data-speed="30">中</button>
+          <button class="preset-btn" data-speed="60">快</button>
+          <button class="preset-btn" data-speed="200">极速</button>
+        </div>
+      </div>
+
+      <!-- Font size -->
+      <div class="sec-zone">
+        <div class="zone-header">
+          <span class="zone-title">字号</span>
+          <span class="zone-value" id="valFont">48</span>
+        </div>
+        <input type="range" id="fontSlider" class="zone-slider" min="20" max="120" value="48" step="2">
+      </div>
+
+      <!-- Toggles -->
+      <div class="sec-zone toggle-zone">
+        <button id="btnMirror" class="toggle-btn">
+          <span class="toggle-icon">&#8596;</span>
+          <span class="toggle-text">镜像</span>
+        </button>
+        <button id="btnFocusLine" class="toggle-btn active">
+          <span class="toggle-icon">&#9135;</span>
+          <span class="toggle-text">焦点线</span>
+        </button>
+        <button id="btnDirection" class="toggle-btn">
+          <span class="toggle-icon" id="dirIcon">&#8593;</span>
+          <span class="toggle-text" id="dirText">向上</span>
+        </button>
+      </div>
+
+    </div>
+
+    <div class="sec-bottom-bar">
+      <button id="btnBack" class="done-btn">完成</button>
+    </div>
+  </div>
+</div>
+
+<!-- Upload section (library page only — default visible since server starts on library) -->
+<div id="uploadView" class="view">
+  <div class="upload-center">
+    <label for="fileUpload" class="upload-btn">
+      <span>&#128206;</span>
+      <span>上传文稿</span>
+    </label>
+    <input type="file" id="fileUpload" accept=".txt,.docx,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+    <div class="upload-status" id="uploadStatus"></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
